@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hit & Blow</title>
+    <style>
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #efefef;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1em;
+            margin: 0;
+        }
+        input {
+            height: 30px;
+            width: 60%;
+            margin: 20px 0;
+        }
+        button {
+            height: 30px;
+            width: 30%;
+            margin: 20px 0;
+        }
+        .result {
+            font-size: 1em;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px dotted #757575;
+        }
+        th {
+            background-color: #263238;
+            border: 1px solid #263238;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hit & Blow</h1>
+        <input id="input" type="number" placeholder="数字を入力">
+        <button id="answerButton">答え合わせ</button>
+        <table id="result">
+            <tr>
+                <th>回答</th>
+                <th>Hit</th>
+                <th>Blow</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // データ定義
+        let correctAnswer = [];
+        let playerAnswer;
+        let $input = document.getElementById("input");
+        let $answerButton = document.getElementById("answerButton");
+        let $result = document.getElementById("result");
+
+        // ゲーム開始（初期化）
+        let init = function() {
+            while (correctAnswer.length < 4) {
+                let randomNum = String(Math.floor(Math.random() * 10));
+                if (correctAnswer.includes(randomNum) == false) {
+                    correctAnswer.push(randomNum);
+                }
+            }
+        }
+
+        // 初期化
+        init();
+        console.log(correctAnswer);
+
+        // 答え合わせボタンが押された時の処理
+        $answerButton.addEventListener("click", function() {
+            let hit = 0;
+            let blow = 0;
+            playerAnswer = $input.value;
+
+            for(let i = 0; i < 4; i++) {
+                if (correctAnswer.includes(playerAnswer[i]) && playerAnswer[i] == correctAnswer[i]) {
+                    hit++;
+                } else if (correctAnswer.includes(playerAnswer[i]) && playerAnswer[i] != correctAnswer[i]) {
+                    blow++;
+                }
+            }
+
+            console.log(hit + " " + blow);
+            $result.innerHTML = $result.innerHTML + "<tr><td>" + playerAnswer + "</td><td>" + hit + "</td><td>" + blow + "</td></tr>";
+        });
+
+    </script>
+</body>
+</html>

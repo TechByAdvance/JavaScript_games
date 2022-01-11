@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数当てゲーム</title>
+    <style>
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #efefef;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1em;
+            margin: 0;
+        }
+        input {
+            height: 30px;
+            width: 60%;
+            margin-top: 20px;
+        }
+        button {
+            height: 30px;
+            width: 30%;
+            margin-top: 20px;
+        }
+        .result {
+            font-size: 1em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>数当てゲーム</h1>
+        <input id="input" type="number" placeholder="数字を入力">
+        <button id="answerButton">答え合わせ</button>
+        <div id="result" class="result">正解の数字を予想しよう</div>
+    </div>
+
+    <script>
+        // データを定義する
+        let correctAnswer;
+        let playerAnswer;
+        let $input = document.getElementById("input");
+        let $answerButton = document.getElementById("answerButton");
+        let $result = document.getElementById("result");
+
+        // ゲーム開始（初期化）用の関数
+        let init = function() {
+            correctAnswer = Math.floor(Math.random() * 100) + 1;
+        }
+
+        // 初期化
+        init();
+
+        // 答え合わせボタンが押された時の処理
+        $answerButton.addEventListener("click", function() {
+            playerAnswer = $input.value;
+            if (playerAnswer == correctAnswer) {
+                $result.innerHTML = "正解！";
+            } else if (playerAnswer < correctAnswer) {
+                $result.innerHTML = "答えはもっと大きい数字です。";
+            } else if (playerAnswer > correctAnswer) {
+                $result.innerHTML = "答えはもっと小さい数字です。";
+            }
+        });
+    </script>
+</body>
+</html>
